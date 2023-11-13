@@ -40,6 +40,11 @@ dependencies:
   json_annotation: ^4.8.1
   font_awesome_flutter: ^10.5.0
   shared_preferences: ^2.2.0
+  path_provider: ^2.1.1
+  photo_manager: ^2.8.0
+  transparent_image: ^2.0.1
+  video_player: ^2.8.1
+  chewie: ^1.5.0
 
 dev_dependencies:
   flutter_test:
