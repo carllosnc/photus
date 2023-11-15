@@ -1,45 +1,40 @@
 import 'package:flutter/material.dart';
 
-var basicTheme = ThemeData(
-  useMaterial3: true,
-  brightness: Brightness.dark,
-  colorSchemeSeed: Colors.red,
-  fontFamily: 'SFProDisplay',
-  scaffoldBackgroundColor: Colors.black,
-  bottomSheetTheme: const BottomSheetThemeData(
-    backgroundColor: Color.fromARGB(255, 17, 17, 17),
-    surfaceTintColor: Color.fromARGB(255, 17, 17, 17),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(0),
+appTheme() {
+  return ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.dark,
+    colorSchemeSeed: Colors.red,
+    fontFamily: 'SFProDisplay',
+    scaffoldBackgroundColor: Colors.black,
+    sliderTheme: const SliderThemeData(
+      activeTrackColor: Colors.red,
+      inactiveTrackColor: Colors.white,
+      thumbColor: Colors.red,
+      trackHeight: 1,
+      thumbShape: RoundSliderThumbShape(
+        enabledThumbRadius: 5,
       ),
     ),
-  ),
-  iconTheme: const IconThemeData(
-    color: Colors.white,
-    opacity: 1,
-    size: 21,
-  ),
-  appBarTheme: const AppBarTheme(
-    backgroundColor: Colors.black,
-    elevation: 0,
-    surfaceTintColor: Colors.black,
-    iconTheme: IconThemeData(
-      color: Colors.white,
-      opacity: 1,
-      size: 21,
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: Color.fromARGB(255, 17, 17, 17),
+      surfaceTintColor: Color.fromARGB(255, 17, 17, 17),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(0),
+        ),
+      ),
     ),
-  ),
-  listTileTheme: const ListTileThemeData(
-    iconColor: Colors.white,
-    titleTextStyle: TextStyle(
-      color: Colors.white,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.black,
+      elevation: 0,
+      surfaceTintColor: Colors.black,
     ),
-  ),
-  pageTransitionsTheme: const PageTransitionsTheme(
-    builders: {
-      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-    },
-  ),
-);
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      },
+    ),
+  );
+}
