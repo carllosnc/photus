@@ -8,6 +8,9 @@ class _Files extends ChangeNotifier {
   bool isLoadingAlbums = true;
   List<AssetPathEntity> albums = [];
   Set<AssetEntity> medias = {};
+  DateTime? startDate;
+  DateTime? endDate;
+  List<String> removedMedias = [];
 
   checkPermission() async {
     final PermissionState ps = await PhotoManager.requestPermissionExtend();
@@ -17,10 +20,10 @@ class _Files extends ChangeNotifier {
       isPermissionGranted = true;
     } else if (ps.hasAccess) {
       isLoading = false;
-      isPermissionGranted = false;
+      isPermissionGranted = true;
     } else {
       isLoading = false;
-      isPermissionGranted = false;
+      isPermissionGranted = true;
     }
 
     await getAllPhotos();
@@ -29,7 +32,9 @@ class _Files extends ChangeNotifier {
   }
 
   getAllAlbuns() async {
-    final List<AssetPathEntity> paths = await PhotoManager.getAssetPathList();
+    final List<AssetPathEntity> paths = await PhotoManager.getAssetPathList(
+      type: RequestType.all,
+    );
 
     albums = paths;
     isLoadingAlbums = false;
@@ -37,7 +42,9 @@ class _Files extends ChangeNotifier {
   }
 
   getAllPhotos() async {
-    final List<AssetPathEntity> albums = await PhotoManager.getAssetPathList();
+    final List<AssetPathEntity> albums = await PhotoManager.getAssetPathList(
+      type: RequestType.all,
+    );
 
     for (final AssetPathEntity album in albums) {
       final List<AssetEntity> media = await album.getAssetListRange(
@@ -51,6 +58,22 @@ class _Files extends ChangeNotifier {
     }
 
     isLoadingImages = false;
+    notifyListeners();
+  }
+
+  removeMediaById(String id) {
+    medias.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  addToRemovedMedias(String id) {
+    removedMedias.add(id);
+    notifyListeners();
+  }
+
+  setRangeDate({DateTime? newStartDate, DateTime? newEndDate}) {
+    startDate = newStartDate;
+    endDate = newEndDate;
     notifyListeners();
   }
 }
