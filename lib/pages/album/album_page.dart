@@ -14,8 +14,9 @@ class AlbumPage extends StatefulWidget {
   State<AlbumPage> createState() => _AlbumPageState();
 }
 
-class _AlbumPageState extends State<AlbumPage> {
-  List<AssetEntity> photos = [];
+class _AlbumPageState extends State<AlbumPage> with FilesMixin {
+  List<AssetEntity> items = [];
+
   bool isLoading = true;
 
   @override
@@ -32,7 +33,7 @@ class _AlbumPageState extends State<AlbumPage> {
     );
 
     setState(() {
-      photos = media;
+      items = media;
       isLoading = false;
     });
   }
@@ -45,22 +46,23 @@ class _AlbumPageState extends State<AlbumPage> {
 
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(files.startDate == null ? 0 : 40),
+          child: const DateFilterIndicator(),
+        ),
         title: Text(
           widget.album.name,
-          style: const TextStyle(fontSize: 14, color: Colors.white),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.calendar_month_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () {},
+          style: const TextStyle(
+            fontSize: 15,
           ),
+        ),
+        actions: const [
+          DateFilter(),
         ],
       ),
       body: MediaGrid(
-        assets: photos,
+        key: UniqueKey(),
+        assets: items,
       ),
     );
   }
