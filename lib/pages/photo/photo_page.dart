@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:transparent_image/transparent_image.dart';
+import '/imports/app.dart';
 
 class PhotoPage extends StatefulWidget {
   final AssetEntity photo;
@@ -15,11 +16,24 @@ class PhotoPage extends StatefulWidget {
   State<PhotoPage> createState() => _PhotoPageState();
 }
 
-class _PhotoPageState extends State<PhotoPage> {
+class _PhotoPageState extends State<PhotoPage> with FilesMixin {
   bool isFullScreen = false;
   bool isLoading = true;
 
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
+
+  removePhoto(BuildContext context) async {
+    var id = await PhotoManager.editor.deleteWithIds([widget.photo.id]);
+
+    if (id.isNotEmpty) {
+      files.removeMediaById(widget.photo.id);
+      files.removedMedias.add(widget.photo.id);
+
+      if (context.mounted) {
+        Navigator.pop(context, true);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +46,9 @@ class _PhotoPageState extends State<PhotoPage> {
           IconButton(
             icon: Icon(
               isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
-              color: isFullScreen ? Colors.greenAccent : Colors.white,
+              color: isFullScreen ? Colors.greenAccent : Colors.yellow,
             ),
+            iconSize: 22,
             onPressed: () {
               setState(() {
                 isFullScreen = !isFullScreen;
@@ -42,23 +57,18 @@ class _PhotoPageState extends State<PhotoPage> {
           ),
           IconButton(
             icon: const Icon(
-              Icons.delete,
-              color: Colors.white,
+              Icons.delete_outline,
             ),
-            onPressed: () {},
+            iconSize: 20,
+            onPressed: () {
+              removePhoto(context);
+            },
           ),
           IconButton(
             icon: const Icon(
-              Icons.edit,
-              color: Colors.white,
+              Icons.share_outlined,
             ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.share,
-              color: Colors.white,
-            ),
+            iconSize: 20,
             onPressed: () {},
           ),
         ],
@@ -100,9 +110,8 @@ class _PhotoPageState extends State<PhotoPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              DateFormat.yMMMMd().format(widget.photo.createDateTime),
+              widget.photo.createDateTime.formattedDate,
               style: const TextStyle(
-                color: Colors.white,
                 fontSize: 12,
               ),
             ),
@@ -110,7 +119,6 @@ class _PhotoPageState extends State<PhotoPage> {
             Text(
               "${widget.photo.width} X ${widget.photo.height}",
               style: const TextStyle(
-                color: Colors.white,
                 fontSize: 12,
               ),
             ),
