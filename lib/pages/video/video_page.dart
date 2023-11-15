@@ -1,9 +1,8 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/components/components.dart';
-import 'package:intl/intl.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:video_player/video_player.dart';
+import '/imports/app.dart';
 
 class VideoPage extends StatefulWidget {
   final AssetEntity video;
@@ -21,8 +20,6 @@ class _VideoPageState extends State<VideoPage> {
   bool isLoadingVideo = true;
   late ChewieController chewieController;
   late VideoPlayerController videoPlayerController;
-
-  final DateFormat formatter = DateFormat('dd/MM/yyyy');
 
   @override
   void initState() {
@@ -62,10 +59,42 @@ class _VideoPageState extends State<VideoPage> {
     super.dispose();
   }
 
+  Future<void> removeVideo(BuildContext context) async {
+    var id = await PhotoManager.editor.deleteWithIds([widget.video.id]);
+
+    if (id.isNotEmpty) {
+      files.removeMediaById(widget.video.id);
+      files.removedMedias.add(widget.video.id);
+
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isLoadingVideo) {
-      return const PageLoading();
+      return Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.delete_outline,
+              ),
+              iconSize: 20,
+              onPressed: () {
+                removeVideo(context);
+              },
+            ),
+          ],
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        ),
+      );
     }
 
     return Scaffold(
@@ -74,16 +103,18 @@ class _VideoPageState extends State<VideoPage> {
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.delete,
-              color: Colors.white,
+              Icons.delete_outline,
             ),
-            onPressed: () {},
+            iconSize: 20,
+            onPressed: () {
+              removeVideo(context);
+            },
           ),
           IconButton(
             icon: const Icon(
-              Icons.share,
-              color: Colors.white,
+              Icons.share_outlined,
             ),
+            iconSize: 20,
             onPressed: () {},
           ),
         ],
@@ -101,9 +132,8 @@ class _VideoPageState extends State<VideoPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              DateFormat.yMMMMd().format(widget.video.createDateTime),
+              widget.video.createDateTime.formattedDate,
               style: const TextStyle(
-                color: Colors.white,
                 fontSize: 12,
               ),
             ),
@@ -111,7 +141,6 @@ class _VideoPageState extends State<VideoPage> {
             Text(
               "${widget.video.width} X ${widget.video.height}",
               style: const TextStyle(
-                color: Colors.white,
                 fontSize: 12,
               ),
             ),
