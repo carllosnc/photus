@@ -29,33 +29,24 @@ class _HomePageState extends State<HomePage> with FilesMixin {
 
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(files.startDate == null ? 0 : 40),
+          child: const DateFilterIndicator(),
+        ),
         actions: [
           IconButton(
             icon: const Icon(
               Icons.info_outline,
-              color: Colors.white,
             ),
+            iconSize: 20,
             onPressed: () {},
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.grid_view_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.calendar_month_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
+          const DateFilter(),
           IconButton(
             icon: const Icon(
               Icons.folder_outlined,
-              color: Colors.white,
             ),
+            iconSize: 20,
             onPressed: () {
               context.push('/albums');
             },
@@ -64,8 +55,7 @@ class _HomePageState extends State<HomePage> with FilesMixin {
         title: const Text(
           'PHOTUS',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 12,
+            fontSize: 14,
             letterSpacing: 2,
             fontWeight: FontWeight.w600,
           ),
