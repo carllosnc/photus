@@ -14,7 +14,6 @@ class PageLoading extends StatelessWidget {
           height: 25,
           child: CircularProgressIndicator(
             strokeWidth: 2,
-            color: Colors.white,
           ),
         ),
       ),
