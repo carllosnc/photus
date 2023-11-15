@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/imports/app.dart';
+import '/imports/app.dart';
 
 class PermissionNotGranted extends StatelessWidget {
   const PermissionNotGranted({
