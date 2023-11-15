@@ -17,8 +17,7 @@ class _AlbumsPageState extends State<AlbumsPage> {
         title: const Text(
           'ALBUMS',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 12,
+            fontSize: 14,
             letterSpacing: 2,
             fontWeight: FontWeight.w600,
           ),
@@ -57,7 +56,6 @@ class _AlbumsPageState extends State<AlbumsPage> {
                   });
                 }
               });
-
               return Text(
                 "$numberOfFiles files",
                 style: TextStyle(
