@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:go_router/go_router.dart';
+import '/imports/app.dart';
 
 class Media extends StatelessWidget {
   final AssetEntity asset;
@@ -20,35 +21,36 @@ class Media extends StatelessWidget {
       thumbnailFormat: ThumbnailFormat.jpeg,
     );
 
-    return Stack(
-      children: [
-        Positioned(
-          width: 105,
-          height: 105,
-          child: Container(
-            color: const Color.fromARGB(255, 42, 42, 42),
-            child: GestureDetector(
-              onTap: () {
-                if (asset.type == AssetType.video) {
+    if (asset.type == AssetType.video) {
+      return Stack(
+        children: [
+          Positioned(
+            width: 105,
+            height: 105,
+            child: Container(
+              color: const Color.fromARGB(255, 42, 42, 42),
+              child: GestureDetector(
+                onTap: () {
                   context.push('/video', extra: asset);
                   return;
-                }
-
-                if (asset.type == AssetType.image) {
-                  context.push('/photo', extra: asset);
-                  return;
-                }
-              },
-              child: FadeInImage(
-                fit: BoxFit.cover,
-                fadeInDuration: const Duration(milliseconds: 300),
-                placeholder: MemoryImage(kTransparentImage),
-                image: image,
+                },
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  fadeInDuration: const Duration(milliseconds: 300),
+                  placeholder: MemoryImage(kTransparentImage),
+                  image: image,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Icon(
+                        Icons.error_outline,
+                        size: 40,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ),
-        ),
-        if (asset.type == AssetType.video)
           Positioned(
             bottom: 0,
             right: 0,
@@ -64,7 +66,30 @@ class Media extends StatelessWidget {
               ),
             ),
           ),
-      ],
+        ],
+      );
+    }
+
+    if (asset.type == AssetType.audio) {
+      return AudioItem(asset: asset);
+    }
+
+    return Container(
+      color: const Color.fromARGB(255, 42, 42, 42),
+      child: GestureDetector(
+        onTap: () {
+          if (asset.type == AssetType.image) {
+            context.push('/photo', extra: asset);
+            return;
+          }
+        },
+        child: FadeInImage(
+          fit: BoxFit.cover,
+          fadeInDuration: const Duration(milliseconds: 300),
+          placeholder: MemoryImage(kTransparentImage),
+          image: image,
+        ),
+      ),
     );
   }
 }
