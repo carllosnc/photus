@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:transparent_image/transparent_image.dart';
 import '/imports/app.dart';
 
@@ -33,6 +36,20 @@ class _PhotoPageState extends State<PhotoPage> with FilesMixin {
         Navigator.pop(context, true);
       }
     }
+  }
+
+  void sharePhoto() {
+    widget.photo.file.then((value) {
+      Uint8List bytes = value!.readAsBytesSync();
+
+      Share.shareXFiles([
+        XFile.fromData(
+          bytes,
+          name: widget.photo.title,
+          mimeType: widget.photo.mimeType,
+        )
+      ]);
+    });
   }
 
   @override
@@ -69,7 +86,7 @@ class _PhotoPageState extends State<PhotoPage> with FilesMixin {
               Icons.share_outlined,
             ),
             iconSize: 20,
-            onPressed: () {},
+            onPressed: sharePhoto,
           ),
         ],
       ),
