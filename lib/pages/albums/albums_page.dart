@@ -26,7 +26,7 @@ class _AlbumsPageState extends State<AlbumsPage> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Divider(
-            color: Colors.white.withOpacity(0.2),
+            color: Colors.white.withOpacity(0.15),
             height: 1,
           ),
         ),
