@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:share_plus/share_plus.dart';
 import '/imports/app.dart';
 
 class AudioItem extends StatelessWidget {
@@ -75,6 +78,20 @@ class AudioItemContent extends StatefulWidget {
 }
 
 class _AudioItemContentState extends State<AudioItemContent> with FilesMixin {
+  void shareAudio() {
+    widget.asset.file.then((value) async {
+      Uint8List bytes = await value!.readAsBytes();
+
+      Share.shareXFiles([
+        XFile.fromData(
+          bytes,
+          name: widget.asset.title,
+          mimeType: widget.asset.mimeType,
+        )
+      ]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -97,11 +114,17 @@ class _AudioItemContentState extends State<AudioItemContent> with FilesMixin {
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.share_outlined),
-                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.share_outlined,
+                    size: 20,
+                  ),
+                  onPressed: shareAudio,
                 ),
                 IconButton(
-                  icon: const Icon(Icons.delete_outline),
+                  icon: const Icon(
+                    Icons.delete_outline,
+                    size: 20,
+                  ),
                   onPressed: () async {
                     var id = await PhotoManager.editor.deleteWithIds([widget.asset.id]);
 
