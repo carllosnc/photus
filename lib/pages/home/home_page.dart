@@ -20,7 +20,15 @@ class _HomePageState extends State<HomePage> with FilesMixin {
   @override
   Widget build(BuildContext context) {
     if (files.isLoading || files.isLoadingImages) {
-      return const PageLoading();
+      return const Center(
+        child: SizedBox(
+          width: 25,
+          height: 25,
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        ),
+      );
     }
 
     if (files.isPermissionGranted == false) {
@@ -34,13 +42,6 @@ class _HomePageState extends State<HomePage> with FilesMixin {
           child: const DateFilterIndicator(),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.info_outline,
-            ),
-            iconSize: 20,
-            onPressed: () {},
-          ),
           const DateFilter(),
           IconButton(
             icon: const Icon(
