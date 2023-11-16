@@ -47,6 +47,7 @@ dependencies:
   chewie: ^1.5.0
   syncfusion_flutter_datepicker: ^23.1.44
   just_audio: ^0.9.36
+  share_plus: ^7.2.1
 
 dev_dependencies:
   flutter_test:
