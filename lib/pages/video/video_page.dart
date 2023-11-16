@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 import '/imports/app.dart';
 
@@ -72,6 +75,20 @@ class _VideoPageState extends State<VideoPage> {
     }
   }
 
+  void shareVideo() {
+    widget.video.file.then((value) {
+      Uint8List bytes = value!.readAsBytesSync();
+
+      Share.shareXFiles([
+        XFile.fromData(
+          bytes,
+          name: widget.video.title,
+          mimeType: widget.video.mimeType,
+        )
+      ]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isLoadingVideo) {
@@ -115,7 +132,7 @@ class _VideoPageState extends State<VideoPage> {
               Icons.share_outlined,
             ),
             iconSize: 20,
-            onPressed: () {},
+            onPressed: shareVideo,
           ),
         ],
       ),
