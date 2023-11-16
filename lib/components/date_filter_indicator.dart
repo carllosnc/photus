@@ -21,7 +21,16 @@ class _DateFilterIndicatorState extends State<DateFilterIndicator> with FilesMix
     return Container(
       height: 40,
       padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-      color: Colors.purple.shade800,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.red.shade900,
+            Colors.orange.shade800,
+          ],
+        ),
+      ),
       child: Row(
         children: [
           Text(
