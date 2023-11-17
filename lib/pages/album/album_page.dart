@@ -61,7 +61,6 @@ class _AlbumPageState extends State<AlbumPage> with FilesMixin {
         ],
       ),
       body: MediaGrid(
-        key: UniqueKey(),
         assets: items,
       ),
     );
