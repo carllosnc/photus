@@ -57,7 +57,7 @@ class Media extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(3),
               decoration: BoxDecoration(
-                color: Colors.blue.shade800,
+                color: Colors.red.shade800,
               ),
               child: const Icon(
                 Icons.play_arrow,

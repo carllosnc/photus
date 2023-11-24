@@ -26,7 +26,7 @@ class _DateFilterIndicatorState extends State<DateFilterIndicator> with FilesMix
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.blue.shade900,
+            Colors.red.shade900,
             Colors.purple.shade800,
           ],
         ),
