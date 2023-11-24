@@ -40,8 +40,8 @@ class _VideoPageState extends State<VideoPage> {
             showControls: true,
             hideControlsTimer: const Duration(seconds: 2),
             materialProgressColors: ChewieProgressColors(
-              playedColor: Colors.red,
-              handleColor: Colors.red.shade900,
+              playedColor: Colors.blue,
+              handleColor: Colors.blue.shade900,
               backgroundColor: Colors.white,
               bufferedColor: Colors.white,
             ),

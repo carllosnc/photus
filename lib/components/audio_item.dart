@@ -37,7 +37,7 @@ class AudioItem extends StatelessWidget {
         });
       },
       child: Container(
-        color: Colors.red.shade700,
+        color: Colors.blue.shade700,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

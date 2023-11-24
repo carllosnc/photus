@@ -4,13 +4,13 @@ appTheme() {
   return ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    colorSchemeSeed: Colors.red,
+    colorSchemeSeed: Colors.blue,
     fontFamily: 'SFProDisplay',
     scaffoldBackgroundColor: Colors.black,
     sliderTheme: const SliderThemeData(
-      activeTrackColor: Colors.red,
+      activeTrackColor: Colors.blue,
       inactiveTrackColor: Colors.white,
-      thumbColor: Colors.red,
+      thumbColor: Colors.blue,
       trackHeight: 1,
       thumbShape: RoundSliderThumbShape(
         enabledThumbRadius: 5,
