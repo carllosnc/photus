@@ -1,11 +1,11 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:transparent_image/transparent_image.dart';
 import '/imports/app.dart';
+import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 
 class PhotoPage extends StatefulWidget {
   final AssetEntity photo;

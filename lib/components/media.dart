@@ -3,6 +3,7 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:go_router/go_router.dart';
 import '/imports/app.dart';
+import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 
 class Media extends StatelessWidget {
   final AssetEntity asset;
